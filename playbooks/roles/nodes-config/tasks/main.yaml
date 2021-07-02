@@ -11,8 +11,8 @@
 - name: Configure node
   shell: |
     if lsmod|grep -q 'ibmveth'; then
-      sudo sysctl -w net.ipv4.route.min_pmtu=1450;
+      sudo sysctl -w net.ipv4.route.min_pmtu={{ cni_network_mtu }};
       sudo sysctl -w net.ipv4.ip_no_pmtu_disc=1;
-      echo 'net.ipv4.route.min_pmtu = 1450' | sudo tee --append /etc/sysctl.d/88-sysctl.conf > /dev/null;
+      echo 'net.ipv4.route.min_pmtu = {{ cni_network_mtu }}' | sudo tee --append /etc/sysctl.d/88-sysctl.conf > /dev/null;
       echo 'net.ipv4.ip_no_pmtu_disc = 1' | sudo tee --append /etc/sysctl.d/88-sysctl.conf > /dev/null;
     fi
